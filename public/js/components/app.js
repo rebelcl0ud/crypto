@@ -51,8 +51,42 @@ var Home = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'section',
-        { className: 'home' },
-        _react2.default.createElement('div', { className: 'container' })
+        { id: 'home' },
+        _react2.default.createElement(
+          'div',
+          { className: 'container' },
+          _react2.default.createElement(
+            'div',
+            { className: 'col-md-6' },
+            _react2.default.createElement('img', { className: 'bitcoin-logo', src: '/img/bitcoin21.png' })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'form col-md-6' },
+            _react2.default.createElement(
+              'h1',
+              null,
+              'Enter Transaction'
+            ),
+            _react2.default.createElement(
+              'label',
+              null,
+              'Amount'
+            ),
+            _react2.default.createElement('input', { type: 'text', name: 'amount', placeholder: '$' }),
+            _react2.default.createElement(
+              'label',
+              null,
+              'Date'
+            ),
+            _react2.default.createElement('input', { type: 'text', name: 'date' }),
+            _react2.default.createElement(
+              'button',
+              { type: 'submit' },
+              'Check Profit'
+            )
+          )
+        )
       );
     }
   }]);
