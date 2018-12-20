@@ -1,6 +1,7 @@
 import React, { Component} from 'react'
 import ReactDOM from 'react-dom'
-import Home from './home'
+import Home from './Home'
+import Results from './Results'
 
 class Layout extends Component {
   constructor () {
@@ -22,10 +23,10 @@ class Layout extends Component {
           </div>
 
           <nav className="menu">
-            <a href="#">Sign Up</a>
+            <a href="#" className="main-btn">Sign Up</a>
           </nav>
         </header>
-        <Home />
+        <Results />
        </div>
       </div>  
     )
