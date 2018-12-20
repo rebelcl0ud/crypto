@@ -1,0 +1,41 @@
+#results {
+	text-align: center;
+
+	h1 {
+		font-size: 2rem;
+		text-transform: capitalize;
+		text-align: center;
+		color: white;
+		margin: 50px 0 15px 0;
+	}
+
+	h2 {
+		font-size: 4rem;
+		text-transform: uppercase;
+		text-align: center;
+		font-weight: 100;
+		color: #07d5fe;
+		margin: 35px 0;
+	}
+
+	h3 {
+		font-size: 1.2rem;
+		font-weight: 300;
+		text-align: center;
+		color: white;
+		margin-bottom: 15px;
+	}
+
+	.main-btn {
+		margin: 50px 0;
+	}
+
+	.ads {
+		text-align: center;
+		height: 90px;
+		width: 728px;
+		background: cyan;
+		margin: 15px auto;
+	}
+	
+}
