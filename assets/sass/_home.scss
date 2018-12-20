@@ -1,0 +1,42 @@
+#home {
+
+	.bitcoin-logo {
+		width: 100%;
+	}
+
+	h1 {
+		color: white;
+		font-size: 2.5rem;
+		text-align: center;
+		margin: 2rem 0;
+	}
+	
+	label {
+		display: block;
+		text-transform: uppercase;
+		font-weight: 600;
+		color: #544cb9;
+		margin: 20px 0;
+	}
+
+	input[type="text"] {
+		display: block;
+		width: 100%;
+		padding: 5px;
+		font-size: 2rem;
+		margin-bottom: 20px;
+		border-radius: 5px;
+		font-weight: 100;
+	}
+
+	button {
+		background: #304ffe;
+		padding: 10px 15px;
+		font-size: 1rem;
+		border: none;
+		float: right;
+		color: white;
+		border-radius: 5px;
+		font-weight: 300;
+	}
+}
