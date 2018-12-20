@@ -48,11 +48,27 @@ var Layout = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'home' },
-        'HomePage',
         _react2.default.createElement(
           'div',
-          { className: 'col-md-offset-4 col-md-6' },
-          _react2.default.createElement('div', { className: 'box-1' })
+          { className: 'container' },
+          _react2.default.createElement(
+            'header',
+            null,
+            _react2.default.createElement(
+              'div',
+              { className: 'logo' },
+              'crypto'
+            ),
+            _react2.default.createElement(
+              'nav',
+              { className: 'menu' },
+              _react2.default.createElement(
+                'a',
+                { href: '#' },
+                'Sign Up'
+              )
+            )
+          )
         )
       );
     }

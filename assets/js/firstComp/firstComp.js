@@ -14,12 +14,17 @@ class Layout extends Component {
   render () {
     return (
       <div className='home'>
-        HomePage
-        <div className="col-md-offset-4 col-md-6">
-          <div className="box-1">
-
+       <div className="container">
+        <header>
+          <div className="logo">
+            crypto
           </div>
-        </div>
+
+          <nav className="menu">
+            <a href="#">Sign Up</a>
+          </nav>
+        </header>
+       </div>
       </div>  
     )
   }
