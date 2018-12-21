@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 159:
+/***/ 160:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20,7 +20,7 @@ var _reactDom = __webpack_require__(45);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactDatepicker = __webpack_require__(385);
+var _reactDatepicker = __webpack_require__(109);
 
 var _reactDatepicker2 = _interopRequireDefault(_reactDatepicker);
 
@@ -31,6 +31,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+// https://github.com/Hacker0x01/react-datepicker
+
 
 var Home = function (_Component) {
   _inherits(Home, _Component);
@@ -84,7 +86,10 @@ var Home = function (_Component) {
               'Date'
             ),
             _react2.default.createElement('input', { type: 'text', name: 'date' }),
-            _react2.default.createElement(_reactDatepicker2.default, null),
+            _react2.default.createElement(_reactDatepicker2.default, {
+              selected: this.props.globalState.date,
+              onChange: this.props.handleChange
+            }),
             _react2.default.createElement(
               'button',
               { type: 'submit' },
@@ -103,7 +108,7 @@ exports.default = Home;
 
 /***/ }),
 
-/***/ 160:
+/***/ 161:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -204,7 +209,7 @@ exports.default = Results;
 
 /***/ }),
 
-/***/ 165:
+/***/ 166:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -220,13 +225,17 @@ var _reactDom = __webpack_require__(45);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _Home = __webpack_require__(159);
+var _Home = __webpack_require__(160);
 
 var _Home2 = _interopRequireDefault(_Home);
 
-var _Results = __webpack_require__(160);
+var _Results = __webpack_require__(161);
 
 var _Results2 = _interopRequireDefault(_Results);
+
+var _reactDatepicker = __webpack_require__(109);
+
+var _reactDatepicker2 = _interopRequireDefault(_reactDatepicker);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -245,9 +254,11 @@ var Layout = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this));
 
     _this.state = {
-      location: 'home'
+      location: 'home',
+      date: ''
     };
     _this.routingSys = _this.routingSys.bind(_this);
+    _this.handleChange = _this.handleChange.bind(_this);
     return _this;
   }
   // simple for prototype
@@ -259,7 +270,7 @@ var Layout = function (_Component) {
       switch (this.state.location) {
         case 'home':
           // code
-          return _react2.default.createElement(_Home2.default, null);
+          return _react2.default.createElement(_Home2.default, { handleChange: this.handleChange, globalState: this.state });
           break;
         case 'results':
           // code
@@ -269,6 +280,13 @@ var Layout = function (_Component) {
           // code
           return _react2.default.createElement(_Home2.default, null);
       }
+    }
+  }, {
+    key: 'handleChange',
+    value: function handleChange(date) {
+      this.setState({
+        date: date
+      });
     }
   }, {
     key: 'render',
@@ -312,4 +330,4 @@ _reactDom2.default.render(_react2.default.createElement(Layout, null), app);
 
 /***/ })
 
-},[165]);
+},[166]);
