@@ -85,7 +85,6 @@ var Home = function (_Component) {
               null,
               'Date'
             ),
-            _react2.default.createElement('input', { type: 'text', name: 'date' }),
             _react2.default.createElement(_reactDatepicker2.default, {
               selected: this.props.globalState.date,
               onChange: this.props.handleChange

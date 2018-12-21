@@ -28,7 +28,6 @@ export default class Home extends Component {
           <input type="text" name="amount" placeholder="$"/>
           
           <label>Date</label>
-          <input type="text" name="date"/>
           <DatePicker 
             selected={this.props.globalState.date}
             onChange={this.props.handleChange}

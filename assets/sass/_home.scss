@@ -39,4 +39,11 @@
 		border-radius: 5px;
 		font-weight: 300;
 	}
+
+	.react-datepicker-wrapper {
+		width: 100%;
+		.react-datepicker__input-container {
+			width: 100%;
+		}
+	}
 }
