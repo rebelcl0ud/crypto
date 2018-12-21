@@ -255,7 +255,7 @@ var Layout = function (_Component) {
 
     _this.state = {
       location: 'home',
-      date: ''
+      date: new Date()
     };
     _this.routingSys = _this.routingSys.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);

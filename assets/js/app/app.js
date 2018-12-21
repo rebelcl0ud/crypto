@@ -9,7 +9,7 @@ class Layout extends Component {
     super()
     this.state = {
       location: 'home',
-      date: '',
+      date: new Date(),
     }
     this.routingSys = this.routingSys.bind(this);
     this.handleChange = this.handleChange.bind(this);
