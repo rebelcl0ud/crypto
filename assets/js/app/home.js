@@ -1,5 +1,6 @@
 import React, { Component} from 'react'
 import ReactDOM from 'react-dom'
+import DatePicker from "react-datepicker";
 
 export default class Home extends Component {
   constructor () {
@@ -27,7 +28,7 @@ export default class Home extends Component {
           
           <label>Date</label>
           <input type="text" name="date"/>
-          
+          <DatePicker />
           <button type="submit">Check Profit</button>
         </div>
        </div>
