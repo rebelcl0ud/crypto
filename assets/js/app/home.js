@@ -34,7 +34,7 @@ export default class Home extends Component {
             selected={this.props.globalState.date}
             onChange={this.props.handleDateChange}
           />
-          <button type="submit">Check Profit</button>
+          <button type="submit" onClick={this.props.checkProfit}>Check Profit</button>
         </div>
        </div>
       </section>  
