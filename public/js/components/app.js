@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 160:
+/***/ 168:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16,11 +16,11 @@ var _react = __webpack_require__(12);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(45);
+var _reactDom = __webpack_require__(46);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactDatepicker = __webpack_require__(109);
+var _reactDatepicker = __webpack_require__(111);
 
 var _reactDatepicker2 = _interopRequireDefault(_reactDatepicker);
 
@@ -107,7 +107,7 @@ exports.default = Home;
 
 /***/ }),
 
-/***/ 161:
+/***/ 169:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -123,7 +123,7 @@ var _react = __webpack_require__(12);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(45);
+var _reactDom = __webpack_require__(46);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -208,7 +208,7 @@ exports.default = Results;
 
 /***/ }),
 
-/***/ 166:
+/***/ 191:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -220,21 +220,25 @@ var _react = __webpack_require__(12);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(45);
+var _reactDom = __webpack_require__(46);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _Home = __webpack_require__(160);
+var _reactDatepicker = __webpack_require__(111);
+
+var _reactDatepicker2 = _interopRequireDefault(_reactDatepicker);
+
+var _axios = __webpack_require__(167);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _Home = __webpack_require__(168);
 
 var _Home2 = _interopRequireDefault(_Home);
 
-var _Results = __webpack_require__(161);
+var _Results = __webpack_require__(169);
 
 var _Results2 = _interopRequireDefault(_Results);
-
-var _reactDatepicker = __webpack_require__(109);
-
-var _reactDatepicker2 = _interopRequireDefault(_reactDatepicker);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -254,16 +258,34 @@ var Layout = function (_Component) {
 
     _this.state = {
       location: 'home',
-      date: new Date()
+      date: new Date(),
+      data: ''
     };
     _this.routingSys = _this.routingSys.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
+    _this.apiCall = _this.apiCall.bind(_this);
     return _this;
   }
-  // simple for prototype
-
 
   _createClass(Layout, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      _axios2.default.get('https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=BTC,USD,EUR&ts=' + new Date().getTime() + '&extraParams=crypto').then(function (response) {
+        _this2.setState({
+          btcToday: response.data.BTC
+        }, function () {
+          return console.log(_this2.state.btcToday);
+        });
+      }).catch(function (err) {
+        return console.error(err);
+      });
+    }
+
+    // simple for prototype
+
+  }, {
     key: 'routingSys',
     value: function routingSys() {
       switch (this.state.location) {
@@ -283,8 +305,27 @@ var Layout = function (_Component) {
   }, {
     key: 'handleChange',
     value: function handleChange(date) {
+      var _this3 = this;
+
       this.setState({
         date: date
+      }, function () {
+        return console.log(_this3.state.date.getTime());
+      });
+    }
+  }, {
+    key: 'apiCall',
+    value: function apiCall() {
+      var _this4 = this;
+
+      _axios2.default.get('https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=USD&ts=1513294607000&extraParams=crypto').then(function (response) {
+        _this4.setState({
+          data: response.data.BTC
+        }, function () {
+          return console.log(_this4.state.data);
+        });
+      }).catch(function (err) {
+        return console.error(err);
       });
     }
   }, {
@@ -301,7 +342,7 @@ var Layout = function (_Component) {
             null,
             _react2.default.createElement(
               'div',
-              { className: 'logo' },
+              { className: 'logo', onClick: this.apiCall },
               'crypto'
             ),
             _react2.default.createElement(
@@ -329,4 +370,4 @@ _reactDom2.default.render(_react2.default.createElement(Layout, null), app);
 
 /***/ })
 
-},[166]);
+},[191]);

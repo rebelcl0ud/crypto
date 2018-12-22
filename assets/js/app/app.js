@@ -1,8 +1,9 @@
 import React, { Component} from 'react'
 import ReactDOM from 'react-dom'
+import DatePicker from "react-datepicker";
+import axios from 'axios'
 import Home from './Home'
 import Results from './Results'
-import DatePicker from "react-datepicker";
 
 class Layout extends Component {
   constructor () {
@@ -10,10 +11,23 @@ class Layout extends Component {
     this.state = {
       location: 'home',
       date: new Date(),
+      data: '',
     }
     this.routingSys = this.routingSys.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.apiCall = this.apiCall.bind(this);
   }
+
+  componentDidMount() {
+     axios.get(`https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=BTC,USD,EUR&ts=${new Date().getTime()}&extraParams=crypto`)
+      .then((response) => {
+        this.setState({
+          btcToday: response.data.BTC
+        }, () => console.log(this.state.btcToday))
+      })
+      .catch((err) => console.error(err))
+  }
+
   // simple for prototype
   routingSys() {
     switch(this.state.location) {
@@ -31,10 +45,20 @@ class Layout extends Component {
     }
   }
 
-   handleChange(date) {
+  handleChange(date) {
     this.setState({
       date: date
-    });
+    }, () => console.log(this.state.date.getTime()))
+  }
+
+  apiCall() {
+    axios.get(`https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=USD&ts=1513294607000&extraParams=crypto`)
+      .then((response) => {
+        this.setState({
+          data: response.data.BTC
+        }, () => console.log(this.state.data))
+      })
+      .catch((err) => console.error(err))
   }
 
   render () {
@@ -42,7 +66,7 @@ class Layout extends Component {
       <div className='home'>
        <div className="container">
         <header>
-          <div className="logo">
+          <div className="logo" onClick={this.apiCall}>
             crypto
           </div>
 
