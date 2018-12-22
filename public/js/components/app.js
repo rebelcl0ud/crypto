@@ -93,7 +93,7 @@ var Home = function (_Component) {
             }),
             _react2.default.createElement(
               'button',
-              { type: 'submit' },
+              { type: 'submit', onClick: this.props.apiCall },
               'Check Profit'
             )
           )
@@ -296,7 +296,7 @@ var Layout = function (_Component) {
       switch (this.state.location) {
         case 'home':
           // code
-          return _react2.default.createElement(_Home2.default, { handleDateChange: this.handleDateChange, globalState: this.state, onCryptoInputChange: this.onCryptoInputChange });
+          return _react2.default.createElement(_Home2.default, { handleDateChange: this.handleDateChange, globalState: this.state, onCryptoInputChange: this.onCryptoInputChange, apiCall: this.apiCall });
           break;
         case 'results':
           // code
@@ -328,7 +328,7 @@ var Layout = function (_Component) {
 
       _axios2.default.get('https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=BTC,USD,EUR&ts=' + this.state.date.getTime() / 1000 + '&extraParams=crypto').then(function (response) {
         _this3.setState({
-          data: response.data.BTC
+          data: response.data
         }, function () {
           console.log(_this3.state);
 

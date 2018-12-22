@@ -36,7 +36,7 @@ class Layout extends Component {
     switch(this.state.location) {
       case 'home':
         // code
-        return <Home handleDateChange={this.handleDateChange} globalState={this.state} onCryptoInputChange={this.onCryptoInputChange}/>
+        return <Home handleDateChange={this.handleDateChange} globalState={this.state} onCryptoInputChange={this.onCryptoInputChange} apiCall={this.apiCall}/>
         break;
       case 'results':
         // code
@@ -64,7 +64,7 @@ class Layout extends Component {
     axios.get(`https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=BTC,USD,EUR&ts=${this.state.date.getTime() / 1000}&extraParams=crypto`)
       .then((response) => {
         this.setState({
-          data: response.data.BTC
+          data: response.data
         }, () => {
           console.log(this.state)
           
