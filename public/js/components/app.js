@@ -79,7 +79,7 @@ var Home = function (_Component) {
               null,
               'Amount'
             ),
-            _react2.default.createElement('input', { type: 'text', name: 'amount', placeholder: '$' }),
+            _react2.default.createElement('input', { type: 'text', name: 'amount', placeholder: '# of Bitcoin' }),
             _react2.default.createElement(
               'label',
               null,
@@ -87,7 +87,7 @@ var Home = function (_Component) {
             ),
             _react2.default.createElement(_reactDatepicker2.default, {
               selected: this.props.globalState.date,
-              onChange: this.props.handleChange
+              onChange: this.props.handleDateChange
             }),
             _react2.default.createElement(
               'button',
@@ -259,10 +259,11 @@ var Layout = function (_Component) {
     _this.state = {
       location: 'home',
       date: new Date(),
-      data: ''
+      data: '',
+      btcToday: ''
     };
     _this.routingSys = _this.routingSys.bind(_this);
-    _this.handleChange = _this.handleChange.bind(_this);
+    _this.handleDateChange = _this.handleDateChange.bind(_this);
     _this.apiCall = _this.apiCall.bind(_this);
     return _this;
   }
@@ -276,7 +277,7 @@ var Layout = function (_Component) {
         _this2.setState({
           btcToday: response.data.BTC
         }, function () {
-          return console.log(_this2.state.btcToday);
+          return console.log(_this2.state.btcToday.USD);
         });
       }).catch(function (err) {
         return console.error(err);
@@ -291,7 +292,7 @@ var Layout = function (_Component) {
       switch (this.state.location) {
         case 'home':
           // code
-          return _react2.default.createElement(_Home2.default, { handleChange: this.handleChange, globalState: this.state });
+          return _react2.default.createElement(_Home2.default, { handleDateChange: this.handleDateChange, globalState: this.state });
           break;
         case 'results':
           // code
@@ -303,8 +304,8 @@ var Layout = function (_Component) {
       }
     }
   }, {
-    key: 'handleChange',
-    value: function handleChange(date) {
+    key: 'handleDateChange',
+    value: function handleDateChange(date) {
       var _this3 = this;
 
       this.setState({
@@ -318,11 +319,29 @@ var Layout = function (_Component) {
     value: function apiCall() {
       var _this4 = this;
 
-      _axios2.default.get('https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=USD&ts=1513294607000&extraParams=crypto').then(function (response) {
+      _axios2.default.get('https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=BTC,USD,EUR&ts=1452680400&extraParams=crypto').then(function (response) {
         _this4.setState({
-          data: response.data.BTC
+          data: response.data.BTC.USD
         }, function () {
-          return console.log(_this4.state.data);
+          console.log(_this4.state.data);
+          // price depending on date put
+          var costPrice = _this4.state.data;
+          // price on present date
+          var sellPrice = _this4.state.btcToday.USD;
+
+          if (costPrice < sellPrice) {
+            var differencePriceGain = sellPrice - costPrice;
+            var percentageGain = differencePriceGain / costPrice * 100;
+            percentageGain = percentageGain.toFixed(2);
+
+            console.log('profit: $' + differencePriceGain + ', ' + percentageGain + '%');
+          } else {
+            var differencePriceLoss = costPrice - sellPrice;
+            var percentageLoss = differencePriceLoss / costPrice * 100;
+            percentageLoss = percentageLoss.toFixed(2);
+
+            console.log('loss: $' + differencePriceLoss + ', ' + percentageLoss + '%');
+          }
         });
       }).catch(function (err) {
         return console.error(err);

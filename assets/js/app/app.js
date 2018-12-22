@@ -12,9 +12,10 @@ class Layout extends Component {
       location: 'home',
       date: new Date(),
       data: '',
+      btcToday: '',
     }
     this.routingSys = this.routingSys.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
     this.apiCall = this.apiCall.bind(this);
   }
 
@@ -23,7 +24,7 @@ class Layout extends Component {
       .then((response) => {
         this.setState({
           btcToday: response.data.BTC
-        }, () => console.log(this.state.btcToday))
+        }, () => console.log(this.state.btcToday.USD))
       })
       .catch((err) => console.error(err))
   }
@@ -33,7 +34,7 @@ class Layout extends Component {
     switch(this.state.location) {
       case 'home':
         // code
-        return <Home handleChange={this.handleChange} globalState={this.state}/>
+        return <Home handleDateChange={this.handleDateChange} globalState={this.state}/>
         break;
       case 'results':
         // code
@@ -45,18 +46,39 @@ class Layout extends Component {
     }
   }
 
-  handleChange(date) {
+  handleDateChange(date) {
     this.setState({
       date: date
     }, () => console.log(this.state.date.getTime()))
   }
 
   apiCall() {
-    axios.get(`https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=USD&ts=1513294607000&extraParams=crypto`)
+    axios.get(`https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=BTC,USD,EUR&ts=1452680400&extraParams=crypto`)
       .then((response) => {
         this.setState({
-          data: response.data.BTC
-        }, () => console.log(this.state.data))
+          data: response.data.BTC.USD
+        }, () => {
+          console.log(this.state.data)
+          // price depending on date put
+          const costPrice = this.state.data;
+          // price on present date
+          const sellPrice = this.state.btcToday.USD;
+
+          if(costPrice < sellPrice) {
+            let differencePriceGain = sellPrice - costPrice;
+            let percentageGain = (differencePriceGain / costPrice) * 100;
+            percentageGain = percentageGain.toFixed(2);
+            
+            console.log(`profit: $${differencePriceGain}, ${percentageGain}%`);
+          }
+          else {
+            let differencePriceLoss = costPrice - sellPrice;
+            let percentageLoss = (differencePriceLoss / costPrice) * 100;
+            percentageLoss = percentageLoss.toFixed(2);
+            
+            console.log(`loss: $${differencePriceLoss}, ${percentageLoss}%`);
+          }
+        })
       })
       .catch((err) => console.error(err))
   }
