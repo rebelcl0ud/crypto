@@ -118,7 +118,7 @@ class Layout extends Component {
       <div className='home'>
        <div className="container">
         <header>
-          <div className="logo" onClick={this.apiCall}>
+          <div className="logo">
             crypto
           </div>
 

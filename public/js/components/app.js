@@ -390,7 +390,7 @@ var Layout = function (_Component) {
             null,
             _react2.default.createElement(
               'div',
-              { className: 'logo', onClick: this.apiCall },
+              { className: 'logo' },
               'crypto'
             ),
             _react2.default.createElement(
