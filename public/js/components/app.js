@@ -93,7 +93,7 @@ var Home = function (_Component) {
             }),
             _react2.default.createElement(
               'button',
-              { type: 'submit', onClick: this.props.apiCall },
+              { type: 'submit', onClick: this.props.checkProfit },
               'Check Profit'
             )
           )
@@ -267,7 +267,7 @@ var Layout = function (_Component) {
     };
     _this.routingSys = _this.routingSys.bind(_this);
     _this.handleDateChange = _this.handleDateChange.bind(_this);
-    _this.apiCall = _this.apiCall.bind(_this);
+    _this.checkProfit = _this.checkProfit.bind(_this);
     _this.onCryptoInputChange = _this.onCryptoInputChange.bind(_this);
     return _this;
   }
@@ -296,7 +296,7 @@ var Layout = function (_Component) {
       switch (this.state.location) {
         case 'home':
           // code
-          return _react2.default.createElement(_Home2.default, { handleDateChange: this.handleDateChange, globalState: this.state, onCryptoInputChange: this.onCryptoInputChange, apiCall: this.apiCall });
+          return _react2.default.createElement(_Home2.default, { handleDateChange: this.handleDateChange, globalState: this.state, onCryptoInputChange: this.onCryptoInputChange, checkProfit: this.checkProfit });
           break;
         case 'results':
           // code
@@ -322,8 +322,8 @@ var Layout = function (_Component) {
       });
     }
   }, {
-    key: 'apiCall',
-    value: function apiCall() {
+    key: 'checkProfit',
+    value: function checkProfit() {
       var _this3 = this;
 
       _axios2.default.get('https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=BTC,USD,EUR&ts=' + this.state.date.getTime() / 1000 + '&extraParams=crypto').then(function (response) {
@@ -360,7 +360,7 @@ var Layout = function (_Component) {
             percentageGain = percentageGain.toFixed(2);
             console.log('percentageGain: ' + percentageGain);
 
-            // console.log(`profit: $${differencePriceGain}, ${percentageGain}%`);
+            console.log('profit: $' + differencePriceGain + ', ' + percentageGain + '%');
           } else {
             var differencePriceLoss = newCostPrice - newSellPrice;
             differencePriceLoss = differencePriceLoss.toFixed(2);
@@ -369,7 +369,7 @@ var Layout = function (_Component) {
             percentageLoss = percentageLoss.toFixed(2);
             console.log('percentageLoss: ' + percentageLoss);
 
-            // console.log(`loss: $${differencePriceLoss}, ${percentageLoss}%`);
+            console.log('loss: $' + differencePriceLoss + ', ' + percentageLoss + '%');
           }
         });
       }).catch(function (err) {

@@ -17,7 +17,7 @@ class Layout extends Component {
     }
     this.routingSys = this.routingSys.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
-    this.apiCall = this.apiCall.bind(this);
+    this.checkProfit = this.checkProfit.bind(this);
     this.onCryptoInputChange = this.onCryptoInputChange.bind(this);
   }
 
@@ -36,7 +36,7 @@ class Layout extends Component {
     switch(this.state.location) {
       case 'home':
         // code
-        return <Home handleDateChange={this.handleDateChange} globalState={this.state} onCryptoInputChange={this.onCryptoInputChange} apiCall={this.apiCall}/>
+        return <Home handleDateChange={this.handleDateChange} globalState={this.state} onCryptoInputChange={this.onCryptoInputChange} checkProfit={this.checkProfit}/>
         break;
       case 'results':
         // code
@@ -60,7 +60,7 @@ class Layout extends Component {
     })
   }
 
-  apiCall() {
+  checkProfit() {
     axios.get(`https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=BTC,USD,EUR&ts=${this.state.date.getTime() / 1000}&extraParams=crypto`)
       .then((response) => {
         this.setState({
@@ -96,7 +96,7 @@ class Layout extends Component {
             percentageGain = percentageGain.toFixed(2);
             console.log(`percentageGain: ${percentageGain}`);
             
-            // console.log(`profit: $${differencePriceGain}, ${percentageGain}%`);
+            console.log(`profit: $${differencePriceGain}, ${percentageGain}%`);
           }
           else {
             let differencePriceLoss = newCostPrice - newSellPrice;
@@ -106,7 +106,7 @@ class Layout extends Component {
             percentageLoss = percentageLoss.toFixed(2);
             console.log(`percentageLoss: ${percentageLoss}`);
             
-            // console.log(`loss: $${differencePriceLoss}, ${percentageLoss}%`);
+            console.log(`loss: $${differencePriceLoss}, ${percentageLoss}%`);
           }
         })
       })
