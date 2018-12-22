@@ -25,12 +25,14 @@ export default class Home extends Component {
           <h1>Enter Transaction</h1>
 
           <label>Amount</label>
-          <input type="text" name="amount" placeholder="$"/>
+          <input type="text" name="amount" placeholder="# of Bitcoin" 
+            value={this.props.globalState.cryptoAmt} 
+            onChange={this.props.onCryptoInputChange}/>
           
           <label>Date</label>
           <DatePicker 
             selected={this.props.globalState.date}
-            onChange={this.props.handleChange}
+            onChange={this.props.handleDateChange}
           />
           <button type="submit">Check Profit</button>
         </div>

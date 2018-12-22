@@ -79,7 +79,9 @@ var Home = function (_Component) {
               null,
               'Amount'
             ),
-            _react2.default.createElement('input', { type: 'text', name: 'amount', placeholder: '# of Bitcoin' }),
+            _react2.default.createElement('input', { type: 'text', name: 'amount', placeholder: '# of Bitcoin',
+              value: this.props.globalState.cryptoAmt,
+              onChange: this.props.onCryptoInputChange }),
             _react2.default.createElement(
               'label',
               null,
@@ -260,11 +262,13 @@ var Layout = function (_Component) {
       location: 'home',
       date: new Date(),
       data: '',
-      btcToday: ''
+      btcToday: '',
+      cryptoAmt: 1
     };
     _this.routingSys = _this.routingSys.bind(_this);
     _this.handleDateChange = _this.handleDateChange.bind(_this);
     _this.apiCall = _this.apiCall.bind(_this);
+    _this.onCryptoInputChange = _this.onCryptoInputChange.bind(_this);
     return _this;
   }
 
@@ -277,7 +281,7 @@ var Layout = function (_Component) {
         _this2.setState({
           btcToday: response.data.BTC
         }, function () {
-          return console.log(_this2.state.btcToday.USD);
+          return console.log('componentDidMount: btcToday.USD: ' + _this2.state.btcToday.USD);
         });
       }).catch(function (err) {
         return console.error(err);
@@ -292,7 +296,7 @@ var Layout = function (_Component) {
       switch (this.state.location) {
         case 'home':
           // code
-          return _react2.default.createElement(_Home2.default, { handleDateChange: this.handleDateChange, globalState: this.state });
+          return _react2.default.createElement(_Home2.default, { handleDateChange: this.handleDateChange, globalState: this.state, onCryptoInputChange: this.onCryptoInputChange });
           break;
         case 'results':
           // code
@@ -306,41 +310,66 @@ var Layout = function (_Component) {
   }, {
     key: 'handleDateChange',
     value: function handleDateChange(date) {
-      var _this3 = this;
-
       this.setState({
         date: date
-      }, function () {
-        return console.log(_this3.state.date.getTime());
+      });
+    }
+  }, {
+    key: 'onCryptoInputChange',
+    value: function onCryptoInputChange(event) {
+      this.setState({
+        cryptoAmt: event.target.value
       });
     }
   }, {
     key: 'apiCall',
     value: function apiCall() {
-      var _this4 = this;
+      var _this3 = this;
 
-      _axios2.default.get('https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=BTC,USD,EUR&ts=1452680400&extraParams=crypto').then(function (response) {
-        _this4.setState({
-          data: response.data.BTC.USD
+      _axios2.default.get('https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=BTC,USD,EUR&ts=' + this.state.date.getTime() / 1000 + '&extraParams=crypto').then(function (response) {
+        _this3.setState({
+          data: response.data.BTC
         }, function () {
-          console.log(_this4.state.data);
-          // price depending on date put
-          var costPrice = _this4.state.data;
+          console.log(_this3.state);
+
+          // price depending on date put, going by 1 BTC
+          var costPrice = _this3.state.data.USD;
+          console.log('costPrice: ' + costPrice);
+          // amount of bitcoin
+          var newCostPrice = _this3.state.cryptoAmt * 100;
+          console.log('newCostPrice: ' + newCostPrice);
+          // $ of bitcoin, date bought
+          newCostPrice = newCostPrice * costPrice / 100;
+          console.log('newCostPrice: ' + newCostPrice);
+
           // price on present date
-          var sellPrice = _this4.state.btcToday.USD;
+          var sellPrice = _this3.state.btcToday.USD;
+          console.log('sellPrice: ' + sellPrice);
+          // $ of bitcoin, present
+          var newSellPrice = _this3.state.cryptoAmt * 100;
+          console.log('newSellPrice: ' + newSellPrice);
+          newSellPrice = newSellPrice * sellPrice / 100;
+          console.log('newSellPrice: ' + newSellPrice);
 
-          if (costPrice < sellPrice) {
-            var differencePriceGain = sellPrice - costPrice;
-            var percentageGain = differencePriceGain / costPrice * 100;
+          if (newCostPrice < newSellPrice) {
+            var differencePriceGain = newSellPrice - newCostPrice;
+            differencePriceGain = differencePriceGain.toFixed(2);
+            console.log('differencePriceGain: ' + differencePriceGain);
+
+            var percentageGain = differencePriceGain / newCostPrice * 100;
             percentageGain = percentageGain.toFixed(2);
+            console.log('percentageGain: ' + percentageGain);
 
-            console.log('profit: $' + differencePriceGain + ', ' + percentageGain + '%');
+            // console.log(`profit: $${differencePriceGain}, ${percentageGain}%`);
           } else {
-            var differencePriceLoss = costPrice - sellPrice;
-            var percentageLoss = differencePriceLoss / costPrice * 100;
+            var differencePriceLoss = newCostPrice - newSellPrice;
+            differencePriceLoss = differencePriceLoss.toFixed(2);
+            console.log('differencePriceLoss: ' + differencePriceLoss);
+            var percentageLoss = differencePriceLoss / newCostPrice * 100;
             percentageLoss = percentageLoss.toFixed(2);
+            console.log('percentageLoss: ' + percentageLoss);
 
-            console.log('loss: $' + differencePriceLoss + ', ' + percentageLoss + '%');
+            // console.log(`loss: $${differencePriceLoss}, ${percentageLoss}%`);
           }
         });
       }).catch(function (err) {
