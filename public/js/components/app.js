@@ -213,6 +213,11 @@ var Results = function (_Component) {
               'a',
               { href: '#', className: 'main-btn active' },
               'Create Account to track transaction history'
+            ),
+            _react2.default.createElement(
+              'a',
+              { href: '#', className: 'main-btn', onClick: this.props.goBackButton },
+              'Check another transaction'
             )
           ),
           _react2.default.createElement(
@@ -293,6 +298,7 @@ var Layout = function (_Component) {
     _this.handleDateChange = _this.handleDateChange.bind(_this);
     _this.checkProfit = _this.checkProfit.bind(_this);
     _this.onCryptoInputChange = _this.onCryptoInputChange.bind(_this);
+    _this.goBackButton = _this.goBackButton.bind(_this);
     return _this;
   }
 
@@ -324,12 +330,26 @@ var Layout = function (_Component) {
           break;
         case 'results':
           // code
-          return _react2.default.createElement(_Results2.default, { globalState: this.state });
+          return _react2.default.createElement(_Results2.default, { globalState: this.state,
+            goBackButton: this.goBackButton });
           break;
         default:
           // code
           return _react2.default.createElement(_Home2.default, null);
       }
+    }
+  }, {
+    key: 'goBackButton',
+    value: function goBackButton() {
+      this.setState({
+        location: 'home',
+        date: new Date(),
+        data: '',
+        btcToday: '',
+        cryptoAmt: 1,
+        status: '',
+        total: ''
+      });
     }
   }, {
     key: 'handleDateChange',
@@ -452,7 +472,7 @@ var Layout = function (_Component) {
             null,
             _react2.default.createElement(
               'div',
-              { className: 'logo' },
+              { className: 'logo', onClick: this.goBackButton },
               'crypto'
             ),
             _react2.default.createElement(

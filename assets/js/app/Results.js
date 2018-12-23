@@ -37,6 +37,7 @@ export default class Results extends Component {
           )}
           
           <a href="#" className="main-btn active">Create Account to track transaction history</a>
+          <a href="#" className="main-btn" onClick={this.props.goBackButton}>Check another transaction</a>
         </div>
         <div className="col-md-12">
           <div className="ads"></div>

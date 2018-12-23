@@ -21,6 +21,7 @@ class Layout extends Component {
     this.handleDateChange = this.handleDateChange.bind(this);
     this.checkProfit = this.checkProfit.bind(this);
     this.onCryptoInputChange = this.onCryptoInputChange.bind(this);
+    this.goBackButton = this.goBackButton.bind(this);
   }
 
   componentDidMount() {
@@ -42,12 +43,25 @@ class Layout extends Component {
         break;
       case 'results':
         // code
-        return <Results globalState={this.state}/>
+        return <Results globalState={this.state} 
+          goBackButton={this.goBackButton}/>
         break;
       default:
         // code
         return <Home />
     }
+  }
+
+  goBackButton() {
+    this.setState({
+      location: 'home',
+      date: new Date(),
+      data: '',
+      btcToday: '',
+      cryptoAmt: 1,
+      status: '',
+      total: '',
+    })
   }
 
   handleDateChange(date) {
@@ -152,7 +166,7 @@ class Layout extends Component {
       <div className='home'>
        <div className="container">
         <header>
-          <div className="logo">
+          <div className="logo" onClick={this.goBackButton}>
             crypto
           </div>
 
