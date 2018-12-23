@@ -330,14 +330,13 @@ var Layout = function (_Component) {
         _this3.setState({
           data: response.data
         }, function () {
-          console.log(_this3.state);
+          console.log(_this3.state.data);
 
           // price depending on date put, going by 1 BTC
-          var costPrice = _this3.state.data.USD;
+          var costPrice = _this3.state.data.BTC.USD;
           console.log('costPrice: ' + costPrice);
           // amount of bitcoin
           var newCostPrice = _this3.state.cryptoAmt * 100;
-          console.log('newCostPrice: ' + newCostPrice);
           // $ of bitcoin, date bought
           newCostPrice = newCostPrice * costPrice / 100;
           console.log('newCostPrice: ' + newCostPrice);
@@ -347,7 +346,6 @@ var Layout = function (_Component) {
           console.log('sellPrice: ' + sellPrice);
           // $ of bitcoin, present
           var newSellPrice = _this3.state.cryptoAmt * 100;
-          console.log('newSellPrice: ' + newSellPrice);
           newSellPrice = newSellPrice * sellPrice / 100;
           console.log('newSellPrice: ' + newSellPrice);
 

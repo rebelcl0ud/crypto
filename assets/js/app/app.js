@@ -66,14 +66,13 @@ class Layout extends Component {
         this.setState({
           data: response.data
         }, () => {
-          console.log(this.state)
+          console.log(this.state.data)
           
           // price depending on date put, going by 1 BTC
-          const costPrice = this.state.data.USD;
+          const costPrice = this.state.data.BTC.USD;
           console.log(`costPrice: ${costPrice}`);
           // amount of bitcoin
           let newCostPrice = (this.state.cryptoAmt * 100);
-          console.log(`newCostPrice: ${newCostPrice}`);
           // $ of bitcoin, date bought
           newCostPrice = (newCostPrice * costPrice) / 100;
           console.log(`newCostPrice: ${newCostPrice}`);
@@ -83,7 +82,6 @@ class Layout extends Component {
           console.log(`sellPrice: ${sellPrice}`);
           // $ of bitcoin, present
           let newSellPrice = (this.state.cryptoAmt * 100);
-          console.log(`newSellPrice: ${newSellPrice}`);
           newSellPrice = (newSellPrice * sellPrice) / 100;
           console.log(`newSellPrice: ${newSellPrice}`);
 
