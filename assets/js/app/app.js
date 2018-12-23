@@ -14,6 +14,8 @@ class Layout extends Component {
       data: '',
       btcToday: '',
       cryptoAmt: 1,
+      status: '',
+      total: '',
     }
     this.routingSys = this.routingSys.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
@@ -60,6 +62,7 @@ class Layout extends Component {
     })
   }
 
+  // fix: onload if you click check profit button as-is this.state.data.BTC is undefined, this.state.data.USD will prevent non-render, but will console out NaN
   checkProfit() {
     axios.get(`https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=BTC,USD,EUR&ts=${this.state.date.getTime() / 1000}&extraParams=crypto`)
       .then((response) => {
@@ -95,6 +98,20 @@ class Layout extends Component {
             console.log(`percentageGain: ${percentageGain}`);
             
             console.log(`profit: $${differencePriceGain}, ${percentageGain}%`);
+
+            // sets state-- location; status; total
+            this.setState({
+              location: 'results',
+              status: 'gain',
+              total: {
+                costPrice: costPrice,
+                newCostPrice: newCostPrice,
+                sellPrice: sellPrice,
+                newSellPrice: newSellPrice,
+                differencePriceGain: differencePriceGain,
+                percentageGain: percentageGain,
+              }
+            })
           }
           else {
             let differencePriceLoss = newCostPrice - newSellPrice;
@@ -105,7 +122,26 @@ class Layout extends Component {
             console.log(`percentageLoss: ${percentageLoss}`);
             
             console.log(`loss: $${differencePriceLoss}, ${percentageLoss}%`);
+
+            // sets state-- location; status; total
+            this.setState({
+              location: 'results',
+              status: 'loss',
+              total: {
+                costPrice: costPrice,
+                newCostPrice: newCostPrice,
+                sellPrice: sellPrice,
+                newSellPrice: newSellPrice,
+                differencePriceLoss: differencePriceLoss,
+                percentageLoss: percentageLoss,
+              }
+            })
           }
+
+          // once snags deets, location changes
+          this.setState({
+            location: 'results'
+          })
         })
       })
       .catch((err) => console.error(err))

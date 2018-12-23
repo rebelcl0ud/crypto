@@ -263,7 +263,9 @@ var Layout = function (_Component) {
       date: new Date(),
       data: '',
       btcToday: '',
-      cryptoAmt: 1
+      cryptoAmt: 1,
+      status: '',
+      total: ''
     };
     _this.routingSys = _this.routingSys.bind(_this);
     _this.handleDateChange = _this.handleDateChange.bind(_this);
@@ -321,6 +323,9 @@ var Layout = function (_Component) {
         cryptoAmt: event.target.value
       });
     }
+
+    // fix: onload if you click check profit button as-is this.state.data.BTC is undefined, this.state.data.USD will prevent non-render, but will console out NaN
+
   }, {
     key: 'checkProfit',
     value: function checkProfit() {
@@ -359,6 +364,20 @@ var Layout = function (_Component) {
             console.log('percentageGain: ' + percentageGain);
 
             console.log('profit: $' + differencePriceGain + ', ' + percentageGain + '%');
+
+            // sets state-- location; status; total
+            _this3.setState({
+              location: 'results',
+              status: 'gain',
+              total: {
+                costPrice: costPrice,
+                newCostPrice: newCostPrice,
+                sellPrice: sellPrice,
+                newSellPrice: newSellPrice,
+                differencePriceGain: differencePriceGain,
+                percentageGain: percentageGain
+              }
+            });
           } else {
             var differencePriceLoss = newCostPrice - newSellPrice;
             differencePriceLoss = differencePriceLoss.toFixed(2);
@@ -368,7 +387,26 @@ var Layout = function (_Component) {
             console.log('percentageLoss: ' + percentageLoss);
 
             console.log('loss: $' + differencePriceLoss + ', ' + percentageLoss + '%');
+
+            // sets state-- location; status; total
+            _this3.setState({
+              location: 'results',
+              status: 'loss',
+              total: {
+                costPrice: costPrice,
+                newCostPrice: newCostPrice,
+                sellPrice: sellPrice,
+                newSellPrice: newSellPrice,
+                differencePriceLoss: differencePriceLoss,
+                percentageLoss: percentageLoss
+              }
+            });
           }
+
+          // once snags deets, location changes
+          _this3.setState({
+            location: 'results'
+          });
         });
       }).catch(function (err) {
         return console.error(err);
