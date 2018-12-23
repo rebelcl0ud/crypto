@@ -169,9 +169,6 @@ var Results = function (_Component) {
           percentageLoss = _props$globalState$to.percentageLoss;
 
 
-      if (percentageGain) {
-        percentageGain;
-      }
       return _react2.default.createElement(
         'section',
         { id: 'results' },

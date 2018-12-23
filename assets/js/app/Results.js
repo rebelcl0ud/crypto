@@ -21,9 +21,6 @@ export default class Results extends Component {
           differencePriceLoss,
           percentageLoss} = this.props.globalState.total;
 
-    if(percentageGain) {
-      percentageGain
-    }
     return (
       <section id='results'>
        <div className="container">
