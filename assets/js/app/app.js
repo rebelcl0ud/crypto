@@ -57,7 +57,6 @@ class Layout extends Component {
       location: 'home',
       date: new Date(),
       data: '',
-      btcToday: '',
       cryptoAmt: 1,
       status: '',
       total: '',
