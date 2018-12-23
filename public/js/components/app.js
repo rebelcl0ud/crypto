@@ -158,6 +158,20 @@ var Results = function (_Component) {
   _createClass(Results, [{
     key: 'render',
     value: function render() {
+      var _props$globalState$to = this.props.globalState.total,
+          costPrice = _props$globalState$to.costPrice,
+          newCostPrice = _props$globalState$to.newCostPrice,
+          sellPrice = _props$globalState$to.sellPrice,
+          newSellPrice = _props$globalState$to.newSellPrice,
+          percentageGain = _props$globalState$to.percentageGain,
+          differencePriceGain = _props$globalState$to.differencePriceGain,
+          differencePriceLoss = _props$globalState$to.differencePriceLoss,
+          percentageLoss = _props$globalState$to.percentageLoss;
+
+
+      if (percentageGain) {
+        percentageGain;
+      }
       return _react2.default.createElement(
         'section',
         { id: 'results' },
@@ -175,17 +189,28 @@ var Results = function (_Component) {
             _react2.default.createElement(
               'h1',
               null,
-              'Your $ investment is now...'
+              'Your $',
+              newCostPrice,
+              ' investment is now worth...'
             ),
             _react2.default.createElement(
               'h2',
               null,
-              '$ RESULT'
+              '$',
+              newSellPrice
             ),
-            _react2.default.createElement(
+            percentageGain ? _react2.default.createElement(
               'h3',
               null,
-              'You Made #% Profit'
+              'You Made ',
+              percentageGain,
+              '% Profit'
+            ) : _react2.default.createElement(
+              'h3',
+              null,
+              'There was ',
+              percentageLoss,
+              '% loss from initial investment'
             ),
             _react2.default.createElement(
               'a',
@@ -302,7 +327,7 @@ var Layout = function (_Component) {
           break;
         case 'results':
           // code
-          return _react2.default.createElement(_Results2.default, null);
+          return _react2.default.createElement(_Results2.default, { globalState: this.state });
           break;
         default:
           // code
@@ -377,6 +402,8 @@ var Layout = function (_Component) {
                 differencePriceGain: differencePriceGain,
                 percentageGain: percentageGain
               }
+            }, function () {
+              return console.log(_this3.state);
             });
           } else {
             var differencePriceLoss = newCostPrice - newSellPrice;
@@ -400,6 +427,8 @@ var Layout = function (_Component) {
                 differencePriceLoss: differencePriceLoss,
                 percentageLoss: percentageLoss
               }
+            }, function () {
+              return console.log(_this3.state);
             });
           }
 

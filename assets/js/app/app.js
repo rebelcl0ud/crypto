@@ -42,7 +42,7 @@ class Layout extends Component {
         break;
       case 'results':
         // code
-        return <Results />
+        return <Results globalState={this.state}/>
         break;
       default:
         // code
@@ -111,7 +111,7 @@ class Layout extends Component {
                 differencePriceGain: differencePriceGain,
                 percentageGain: percentageGain,
               }
-            })
+            }, () => console.log(this.state))
           }
           else {
             let differencePriceLoss = newCostPrice - newSellPrice;
@@ -135,7 +135,7 @@ class Layout extends Component {
                 differencePriceLoss: differencePriceLoss,
                 percentageLoss: percentageLoss,
               }
-            })
+            }, () => console.log(this.state))
           }
 
           // once snags deets, location changes
