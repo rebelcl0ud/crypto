@@ -12,6 +12,18 @@ export default class Results extends Component {
     console.log('swag')
   }
   render () {
+    const {costPrice, 
+          newCostPrice,
+          sellPrice, 
+          newSellPrice, 
+          percentageGain,
+          differencePriceGain,
+          differencePriceLoss,
+          percentageLoss} = this.props.globalState.total;
+
+    if(percentageGain) {
+      percentageGain
+    }
     return (
       <section id='results'>
        <div className="container">
@@ -19,9 +31,14 @@ export default class Results extends Component {
           <div className="ads"></div>
         </div>
         <div className="col-md-12">
-          <h1>Your $ investment is now...</h1>
-          <h2>$ RESULT</h2>
-          <h3>You Made #% Profit</h3>
+          <h1>Your ${newCostPrice} investment is now worth...</h1>
+          <h2>${newSellPrice}</h2>
+          {percentageGain ? (
+            <h3>You Made {percentageGain}% Profit</h3>
+          ) : (
+            <h3>There was {percentageLoss}% loss from initial investment</h3>
+          )}
+          
           <a href="#" className="main-btn active">Create Account to track transaction history</a>
         </div>
         <div className="col-md-12">
